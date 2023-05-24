@@ -156,7 +156,7 @@ Rapport d'activité
     Html To Pdf    ${rapport_complet}    rapport.pdf
 
     Send Message  sender=${gmail}
-    ...           recipients=romeo.beyara@eburtis.ci
+    ...           recipients=anicet.yedagne@eburtis.ci
     ...           subject=Rapport de caisse 
     ...           body=Bonjour, Ci-joint la liste des responsables dont les rapports journaliers sont en erreur , \n Merci de les contacter pour plus de details. \n Cordialement
     ...           attachments=${CURDIR}${/}rapport.pdf
