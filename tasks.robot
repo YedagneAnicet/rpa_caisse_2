@@ -144,6 +144,8 @@ Rapport d'activité
             Append To List    ${contenu_html}    ${balise_html}
         END
 
+        @{ResponsablesEnErreur}       Create List
+
         ${contenu_html}    Evaluate       ''.join(${contenu_html})    
 
         ${rapport_html}    Catenate    <h2>${date}</h2><ol>${contenu_html}</ol>
@@ -154,7 +156,7 @@ Rapport d'activité
     Html To Pdf    ${rapport_complet}    rapport.pdf
 
     Send Message  sender=${gmail}
-    ...           recipients=yedagneanicet@gmail.com
+    ...           recipients=romeo.beyara@eburtis.ci
     ...           subject=Rapport de caisse 
     ...           body=Bonjour, Ci-joint la liste des responsables dont les rapports journaliers sont en erreur , \n Merci de les contacter pour plus de details. \n Cordialement
     ...           attachments=${CURDIR}${/}rapport.pdf

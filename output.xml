@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230524 09:14:05.773" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230524 09:33:38.840" rpa="false" schemaversion="3">
 <suite id="s1" name="Tasks" source="e:\maa_code\rpa_caise\tasks.robot">
 <kw name="Connect To Database" library="DatabaseLibrary" type="SETUP">
 <arg>psycopg2</arg>
@@ -10,15 +10,15 @@
 <arg>${DBPort}</arg>
 <doc>Loads the DB API 2.0 module given `dbapiModuleName` then uses it to
 connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
-<msg timestamp="20230524 09:14:09.019" level="INFO">Connecting using : psycopg2.connect(database=rpa_caisse_db, user=postgres, password=postgres, host=localhost, port=5432) </msg>
-<status status="PASS" starttime="20230524 09:14:08.987" endtime="20230524 09:14:09.082"/>
+<msg timestamp="20230524 09:33:42.056" level="INFO">Connecting using : psycopg2.connect(database=rpa_caisse_db, user=postgres, password=postgres, host=localhost, port=5432) </msg>
+<status status="PASS" starttime="20230524 09:33:42.029" endtime="20230524 09:33:42.117"/>
 </kw>
 <test id="s1-t1" name="Rapport d'activité" line="111">
 <kw name="Authorize" library="RPA.Email.ImapSmtp" type="SETUP">
 <arg>account=${gmail}</arg>
 <arg>password=${mdp}</arg>
 <doc>Authorize user to SMTP and IMAP servers.</doc>
-<status status="PASS" starttime="20230524 09:14:09.083" endtime="20230524 09:14:10.898"/>
+<status status="PASS" starttime="20230524 09:33:42.120" endtime="20230524 09:33:43.820"/>
 </kw>
 <kw name="Recuperer les donnee de la base de donnee">
 <var>@{ListeRapports}</var>
@@ -35,8 +35,8 @@ connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
 <arg>'montant_monnaie', montant_monnaie</arg>
 <arg>)) AS rapports FROM rapport_journalier GROUP BY date;</arg>
 <doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.905" level="INFO">${query} = SELECT date, JSONB_AGG(JSONB_BUILD_OBJECT( 'nom_responsable', nom_responsable, 'email_responsable', email_responsable, 'montant_carte_bancaire', montant_carte_bancaire, 'montant_espece', montant_espec...</msg>
-<status status="PASS" starttime="20230524 09:14:10.903" endtime="20230524 09:14:10.906"/>
+<msg timestamp="20230524 09:33:43.825" level="INFO">${query} = SELECT date, JSONB_AGG(JSONB_BUILD_OBJECT( 'nom_responsable', nom_responsable, 'email_responsable', email_responsable, 'montant_carte_bancaire', montant_carte_bancaire, 'montant_espece', montant_espec...</msg>
+<status status="PASS" starttime="20230524 09:33:43.823" endtime="20230524 09:33:43.825"/>
 </kw>
 <kw name="Query" library="DatabaseLibrary">
 <var>@{donnee}</var>
@@ -44,223 +44,44 @@ connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
 <doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional
 input `sansTran` to True to run command without an explicit transaction commit or rollback.
 Set optional input `returnAsDict` to True to return values as a list of dictionaries.</doc>
-<msg timestamp="20230524 09:14:10.908" level="INFO">Executing : Query  |  SELECT date, JSONB_AGG(JSONB_BUILD_OBJECT( 'nom_responsable', nom_responsable, 'email_responsable', email_responsable, 'montant_carte_bancaire', montant_carte_bancaire, 'montant_espece', montant_espece, 'montant_ticket_restaurant', montant_ticket_restaurant, 'montant_prelevement', montant_prelevement, 'montant_monnaie', montant_monnaie )) AS rapports FROM rapport_journalier GROUP BY date; </msg>
-<msg timestamp="20230524 09:14:10.914" level="INFO">@{donnee} = [ (datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'm...</msg>
-<status status="PASS" starttime="20230524 09:14:10.907" endtime="20230524 09:14:10.915"/>
+<msg timestamp="20230524 09:33:43.828" level="INFO">Executing : Query  |  SELECT date, JSONB_AGG(JSONB_BUILD_OBJECT( 'nom_responsable', nom_responsable, 'email_responsable', email_responsable, 'montant_carte_bancaire', montant_carte_bancaire, 'montant_espece', montant_espece, 'montant_ticket_restaurant', montant_ticket_restaurant, 'montant_prelevement', montant_prelevement, 'montant_monnaie', montant_monnaie )) AS rapports FROM rapport_journalier GROUP BY date; </msg>
+<msg timestamp="20230524 09:33:43.834" level="INFO">@{donnee} = [ (datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'mont...</msg>
+<status status="PASS" starttime="20230524 09:33:43.827" endtime="20230524 09:33:43.834"/>
 </kw>
-<msg timestamp="20230524 09:14:10.915" level="INFO">@{ListeRapports} = [ (datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'm...</msg>
-<status status="PASS" starttime="20230524 09:14:10.901" endtime="20230524 09:14:10.916"/>
+<msg timestamp="20230524 09:33:43.835" level="INFO">@{ListeRapports} = [ (datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'mont...</msg>
+<status status="PASS" starttime="20230524 09:33:43.822" endtime="20230524 09:33:43.835"/>
 </kw>
 <kw name="Create List" library="BuiltIn">
 <var>@{ResponsablesEnErreur}</var>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20230524 09:14:10.917" level="INFO">@{ResponsablesEnErreur} = [ ]</msg>
-<status status="PASS" starttime="20230524 09:14:10.917" endtime="20230524 09:14:10.917"/>
+<msg timestamp="20230524 09:33:43.838" level="INFO">@{ResponsablesEnErreur} = [ ]</msg>
+<status status="PASS" starttime="20230524 09:33:43.836" endtime="20230524 09:33:43.838"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${rapport_complet}</var>
 <arg>${EMPTY}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.920" level="INFO">${rapport_complet} = </msg>
-<status status="PASS" starttime="20230524 09:14:10.918" endtime="20230524 09:14:10.920"/>
+<msg timestamp="20230524 09:33:43.840" level="INFO">${rapport_complet} = </msg>
+<status status="PASS" starttime="20230524 09:33:43.838" endtime="20230524 09:33:43.841"/>
 </kw>
 <for flavor="IN">
 <var>${rapport}</var>
 <value>@{ListeRapports}</value>
 <iter>
-<var name="${rapport}">(datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'mon...</var>
+<var name="${rapport}">(datetime.date(2023, 5, 25), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'montan...</var>
 <kw name="Set Variable" library="BuiltIn">
 <var>${date}</var>
 <arg>${rapport[0]}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.925" level="INFO">${date} = 2023-05-25</msg>
-<status status="PASS" starttime="20230524 09:14:10.924" endtime="20230524 09:14:10.925"/>
+<msg timestamp="20230524 09:33:43.848" level="INFO">${date} = 2023-05-25</msg>
+<status status="PASS" starttime="20230524 09:33:43.846" endtime="20230524 09:33:43.848"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${rapport_details}</var>
 <arg>${rapport[1]}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.927" level="INFO">${rapport_details} = [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, ...</msg>
-<status status="PASS" starttime="20230524 09:14:10.925" endtime="20230524 09:14:10.927"/>
-</kw>
-<for flavor="IN">
-<var>${responsable_details}</var>
-<value>@{rapport_details}</value>
-<iter>
-<var name="${responsable_details}">{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, '...</var>
-<kw name="Set Variable" library="BuiltIn">
-<var>${nom_responsable}</var>
-<arg>${responsable_details['nom_responsable']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.931" level="INFO">${nom_responsable} = Anicet YEDAGNE</msg>
-<status status="PASS" starttime="20230524 09:14:10.929" endtime="20230524 09:14:10.932"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${email_responsable}</var>
-<arg>${responsable_details['email_responsable']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.933" level="INFO">${email_responsable} = anicetyedagne@eburtis.ci</msg>
-<status status="PASS" starttime="20230524 09:14:10.932" endtime="20230524 09:14:10.933"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${montant_carte_bancaire}</var>
-<arg>${responsable_details['montant_carte_bancaire']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.935" level="INFO">${montant_carte_bancaire} = 12000</msg>
-<status status="PASS" starttime="20230524 09:14:10.934" endtime="20230524 09:14:10.935"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${montant_espece}</var>
-<arg>${responsable_details['montant_espece']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.937" level="INFO">${montant_espece} = 5000</msg>
-<status status="PASS" starttime="20230524 09:14:10.935" endtime="20230524 09:14:10.938"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${montant_ticket_restaurant}</var>
-<arg>${responsable_details['montant_ticket_restaurant']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.940" level="INFO">${montant_ticket_restaurant} = 1000</msg>
-<status status="PASS" starttime="20230524 09:14:10.938" endtime="20230524 09:14:10.940"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${montant_prelevement}</var>
-<arg>${responsable_details['montant_prelevement']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.942" level="INFO">${montant_prelevement} = 14000</msg>
-<status status="PASS" starttime="20230524 09:14:10.941" endtime="20230524 09:14:10.942"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${montant_monnaie}</var>
-<arg>${responsable_details['montant_monnaie']}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.943" level="INFO">${montant_monnaie} = 3000</msg>
-<status status="PASS" starttime="20230524 09:14:10.942" endtime="20230524 09:14:10.943"/>
-</kw>
-<kw name="Vérification des montants">
-<var>${status_solde}</var>
-<arg>${montant_carte_bancaire}</arg>
-<arg>${montant_espece}</arg>
-<arg>${montant_ticket_restaurant}</arg>
-<arg>${montant_prelevement}</arg>
-<arg>${montant_monnaie}</arg>
-<doc>Vérification du solde selon la regles "carte bancaire + espèces + ticket restaurant = prélèvement - apport monnaie".</doc>
-<kw name="Evaluate" library="BuiltIn">
-<var>${montant_total}</var>
-<arg>${montant_carte_bancaire}+${montant_espece}+${montant_ticket_restaurant}</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.946" level="INFO">${montant_total} = 18000</msg>
-<status status="PASS" starttime="20230524 09:14:10.945" endtime="20230524 09:14:10.946"/>
-</kw>
-<kw name="Evaluate" library="BuiltIn">
-<var>${solde}</var>
-<arg>${montant_prelevement} - ${montant_apport_monnaie}</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.947" level="INFO">${solde} = 11000</msg>
-<status status="PASS" starttime="20230524 09:14:10.947" endtime="20230524 09:14:10.947"/>
-</kw>
-<kw name="Run Keyword If" library="BuiltIn">
-<var>${statut_solde}</var>
-<arg>'${montant_total}'=='${solde}'</arg>
-<arg>Set Variable</arg>
-<arg>${True}</arg>
-<arg>ELSE</arg>
-<arg>Set Variable</arg>
-<arg>${False}</arg>
-<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<kw name="Set Variable" library="BuiltIn">
-<arg>${False}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" starttime="20230524 09:14:10.948" endtime="20230524 09:14:10.948"/>
-</kw>
-<msg timestamp="20230524 09:14:10.948" level="INFO">${statut_solde} = False</msg>
-<status status="PASS" starttime="20230524 09:14:10.947" endtime="20230524 09:14:10.948"/>
-</kw>
-<msg timestamp="20230524 09:14:10.949" level="INFO">${status_solde} = False</msg>
-<status status="PASS" starttime="20230524 09:14:10.943" endtime="20230524 09:14:10.949"/>
-</kw>
-<if>
-<branch type="IF" condition="${status_solde} == False">
-<kw name="Append To List" library="Collections">
-<arg>${ResponsablesEnErreur}</arg>
-<arg>${nom_responsable}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20230524 09:14:10.949" endtime="20230524 09:14:10.949"/>
-</kw>
-<status status="PASS" starttime="20230524 09:14:10.949" endtime="20230524 09:14:10.949"/>
-</branch>
-<status status="PASS" starttime="20230524 09:14:10.949" endtime="20230524 09:14:10.950"/>
-</if>
-<status status="PASS" starttime="20230524 09:14:10.928" endtime="20230524 09:14:10.950"/>
-</iter>
-<status status="PASS" starttime="20230524 09:14:10.928" endtime="20230524 09:14:10.950"/>
-</for>
-<kw name="Create List" library="BuiltIn">
-<var>${contenu_html}</var>
-<doc>Returns a list containing given items.</doc>
-<msg timestamp="20230524 09:14:10.950" level="INFO">${contenu_html} = []</msg>
-<status status="PASS" starttime="20230524 09:14:10.950" endtime="20230524 09:14:10.950"/>
-</kw>
-<for flavor="IN">
-<var>${responsable}</var>
-<value>@{ResponsablesEnErreur}</value>
-<iter>
-<var name="${responsable}">Anicet YEDAGNE</var>
-<kw name="Catenate" library="BuiltIn">
-<var>${balise_html}</var>
-<arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
-<doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.951" level="INFO">${balise_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.951" endtime="20230524 09:14:10.951"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${contenu_html}</arg>
-<arg>${balise_html}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20230524 09:14:10.951" endtime="20230524 09:14:10.952"/>
-</kw>
-<status status="PASS" starttime="20230524 09:14:10.950" endtime="20230524 09:14:10.952"/>
-</iter>
-<status status="PASS" starttime="20230524 09:14:10.950" endtime="20230524 09:14:10.952"/>
-</for>
-<kw name="Evaluate" library="BuiltIn">
-<var>${contenu_html}</var>
-<arg>''.join(${contenu_html})</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.953" level="INFO">${contenu_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.953" endtime="20230524 09:14:10.954"/>
-</kw>
-<kw name="Catenate" library="BuiltIn">
-<var>${rapport_html}</var>
-<arg>&lt;h2&gt;${date}&lt;/h2&gt;&lt;ol&gt;${contenu_html}&lt;/ol&gt;</arg>
-<doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.954" level="INFO">${rapport_html} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.954" endtime="20230524 09:14:10.955"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${rapport_complet}</var>
-<arg>${rapport_complet}${rapport_html}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.956" level="INFO">${rapport_complet} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.955" endtime="20230524 09:14:10.956"/>
-</kw>
-<status status="PASS" starttime="20230524 09:14:10.923" endtime="20230524 09:14:10.956"/>
-</iter>
-<iter>
-<var name="${rapport}">(datetime.date(2023, 5, 19), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'montan...</var>
-<kw name="Set Variable" library="BuiltIn">
-<var>${date}</var>
-<arg>${rapport[0]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.958" level="INFO">${date} = 2023-05-19</msg>
-<status status="PASS" starttime="20230524 09:14:10.957" endtime="20230524 09:14:10.958"/>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<var>${rapport_details}</var>
-<arg>${rapport[1]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.960" level="INFO">${rapport_details} = [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, 'mo...</msg>
-<status status="PASS" starttime="20230524 09:14:10.958" endtime="20230524 09:14:10.960"/>
+<msg timestamp="20230524 09:33:43.849" level="INFO">${rapport_details} = [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'romeo.beyara@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, 'mo...</msg>
+<status status="PASS" starttime="20230524 09:33:43.849" endtime="20230524 09:33:43.851"/>
 </kw>
 <for flavor="IN">
 <var>${responsable_details}</var>
@@ -271,50 +92,50 @@ Set optional input `returnAsDict` to True to return values as a list of dictiona
 <var>${nom_responsable}</var>
 <arg>${responsable_details['nom_responsable']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.962" level="INFO">${nom_responsable} = Romeo BEYARA</msg>
-<status status="PASS" starttime="20230524 09:14:10.961" endtime="20230524 09:14:10.962"/>
+<msg timestamp="20230524 09:33:43.852" level="INFO">${nom_responsable} = Romeo BEYARA</msg>
+<status status="PASS" starttime="20230524 09:33:43.851" endtime="20230524 09:33:43.852"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${email_responsable}</var>
 <arg>${responsable_details['email_responsable']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.964" level="INFO">${email_responsable} = romeo.beyara@eburtis.ci</msg>
-<status status="PASS" starttime="20230524 09:14:10.962" endtime="20230524 09:14:10.964"/>
+<msg timestamp="20230524 09:33:43.853" level="INFO">${email_responsable} = romeo.beyara@eburtis.ci</msg>
+<status status="PASS" starttime="20230524 09:33:43.852" endtime="20230524 09:33:43.853"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${montant_carte_bancaire}</var>
 <arg>${responsable_details['montant_carte_bancaire']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.966" level="INFO">${montant_carte_bancaire} = 12000</msg>
-<status status="PASS" starttime="20230524 09:14:10.964" endtime="20230524 09:14:10.966"/>
+<msg timestamp="20230524 09:33:43.853" level="INFO">${montant_carte_bancaire} = 12000</msg>
+<status status="PASS" starttime="20230524 09:33:43.853" endtime="20230524 09:33:43.853"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${montant_espece}</var>
 <arg>${responsable_details['montant_espece']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.967" level="INFO">${montant_espece} = 5000</msg>
-<status status="PASS" starttime="20230524 09:14:10.966" endtime="20230524 09:14:10.967"/>
+<msg timestamp="20230524 09:33:43.854" level="INFO">${montant_espece} = 5000</msg>
+<status status="PASS" starttime="20230524 09:33:43.854" endtime="20230524 09:33:43.854"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${montant_ticket_restaurant}</var>
 <arg>${responsable_details['montant_ticket_restaurant']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.968" level="INFO">${montant_ticket_restaurant} = 1000</msg>
-<status status="PASS" starttime="20230524 09:14:10.967" endtime="20230524 09:14:10.968"/>
+<msg timestamp="20230524 09:33:43.855" level="INFO">${montant_ticket_restaurant} = 1000</msg>
+<status status="PASS" starttime="20230524 09:33:43.854" endtime="20230524 09:33:43.855"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${montant_prelevement}</var>
 <arg>${responsable_details['montant_prelevement']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.969" level="INFO">${montant_prelevement} = 14000</msg>
-<status status="PASS" starttime="20230524 09:14:10.968" endtime="20230524 09:14:10.969"/>
+<msg timestamp="20230524 09:33:43.856" level="INFO">${montant_prelevement} = 14000</msg>
+<status status="PASS" starttime="20230524 09:33:43.855" endtime="20230524 09:33:43.856"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${montant_monnaie}</var>
 <arg>${responsable_details['montant_monnaie']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.971" level="INFO">${montant_monnaie} = 3000</msg>
-<status status="PASS" starttime="20230524 09:14:10.969" endtime="20230524 09:14:10.973"/>
+<msg timestamp="20230524 09:33:43.857" level="INFO">${montant_monnaie} = 3000</msg>
+<status status="PASS" starttime="20230524 09:33:43.856" endtime="20230524 09:33:43.859"/>
 </kw>
 <kw name="Vérification des montants">
 <var>${status_solde}</var>
@@ -328,15 +149,15 @@ Set optional input `returnAsDict` to True to return values as a list of dictiona
 <var>${montant_total}</var>
 <arg>${montant_carte_bancaire}+${montant_espece}+${montant_ticket_restaurant}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.974" level="INFO">${montant_total} = 18000</msg>
-<status status="PASS" starttime="20230524 09:14:10.974" endtime="20230524 09:14:10.974"/>
+<msg timestamp="20230524 09:33:43.861" level="INFO">${montant_total} = 18000</msg>
+<status status="PASS" starttime="20230524 09:33:43.860" endtime="20230524 09:33:43.861"/>
 </kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${solde}</var>
 <arg>${montant_prelevement} - ${montant_apport_monnaie}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.976" level="INFO">${solde} = 11000</msg>
-<status status="PASS" starttime="20230524 09:14:10.975" endtime="20230524 09:14:10.976"/>
+<msg timestamp="20230524 09:33:43.861" level="INFO">${solde} = 11000</msg>
+<status status="PASS" starttime="20230524 09:33:43.861" endtime="20230524 09:33:43.862"/>
 </kw>
 <kw name="Run Keyword If" library="BuiltIn">
 <var>${statut_solde}</var>
@@ -350,13 +171,13 @@ Set optional input `returnAsDict` to True to return values as a list of dictiona
 <kw name="Set Variable" library="BuiltIn">
 <arg>${False}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" starttime="20230524 09:14:10.978" endtime="20230524 09:14:10.978"/>
+<status status="PASS" starttime="20230524 09:33:43.862" endtime="20230524 09:33:43.864"/>
 </kw>
-<msg timestamp="20230524 09:14:10.978" level="INFO">${statut_solde} = False</msg>
-<status status="PASS" starttime="20230524 09:14:10.976" endtime="20230524 09:14:10.978"/>
+<msg timestamp="20230524 09:33:43.865" level="INFO">${statut_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.862" endtime="20230524 09:33:43.865"/>
 </kw>
-<msg timestamp="20230524 09:14:10.979" level="INFO">${status_solde} = False</msg>
-<status status="PASS" starttime="20230524 09:14:10.973" endtime="20230524 09:14:10.979"/>
+<msg timestamp="20230524 09:33:43.865" level="INFO">${status_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.859" endtime="20230524 09:33:43.866"/>
 </kw>
 <if>
 <branch type="IF" condition="${status_solde} == False">
@@ -364,237 +185,659 @@ Set optional input `returnAsDict` to True to return values as a list of dictiona
 <arg>${ResponsablesEnErreur}</arg>
 <arg>${nom_responsable}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20230524 09:14:10.979" endtime="20230524 09:14:10.980"/>
+<status status="PASS" starttime="20230524 09:33:43.866" endtime="20230524 09:33:43.867"/>
 </kw>
-<status status="PASS" starttime="20230524 09:14:10.979" endtime="20230524 09:14:10.980"/>
+<status status="PASS" starttime="20230524 09:33:43.866" endtime="20230524 09:33:43.867"/>
 </branch>
-<status status="PASS" starttime="20230524 09:14:10.979" endtime="20230524 09:14:10.980"/>
+<status status="PASS" starttime="20230524 09:33:43.866" endtime="20230524 09:33:43.867"/>
 </if>
-<status status="PASS" starttime="20230524 09:14:10.961" endtime="20230524 09:14:10.980"/>
+<status status="PASS" starttime="20230524 09:33:43.851" endtime="20230524 09:33:43.867"/>
 </iter>
-<status status="PASS" starttime="20230524 09:14:10.960" endtime="20230524 09:14:10.980"/>
+<iter>
+<var name="${responsable_details}">{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, '...</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nom_responsable}</var>
+<arg>${responsable_details['nom_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.868" level="INFO">${nom_responsable} = Anicet YEDAGNE</msg>
+<status status="PASS" starttime="20230524 09:33:43.867" endtime="20230524 09:33:43.868"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${email_responsable}</var>
+<arg>${responsable_details['email_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.869" level="INFO">${email_responsable} = anicetyedagne@eburtis.ci</msg>
+<status status="PASS" starttime="20230524 09:33:43.868" endtime="20230524 09:33:43.869"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_carte_bancaire}</var>
+<arg>${responsable_details['montant_carte_bancaire']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.869" level="INFO">${montant_carte_bancaire} = 12000</msg>
+<status status="PASS" starttime="20230524 09:33:43.869" endtime="20230524 09:33:43.870"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_espece}</var>
+<arg>${responsable_details['montant_espece']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.870" level="INFO">${montant_espece} = 5000</msg>
+<status status="PASS" starttime="20230524 09:33:43.870" endtime="20230524 09:33:43.870"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_ticket_restaurant}</var>
+<arg>${responsable_details['montant_ticket_restaurant']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.871" level="INFO">${montant_ticket_restaurant} = 1000</msg>
+<status status="PASS" starttime="20230524 09:33:43.870" endtime="20230524 09:33:43.871"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_prelevement}</var>
+<arg>${responsable_details['montant_prelevement']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.872" level="INFO">${montant_prelevement} = 14000</msg>
+<status status="PASS" starttime="20230524 09:33:43.871" endtime="20230524 09:33:43.872"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_monnaie}</var>
+<arg>${responsable_details['montant_monnaie']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.872" level="INFO">${montant_monnaie} = 3000</msg>
+<status status="PASS" starttime="20230524 09:33:43.872" endtime="20230524 09:33:43.872"/>
+</kw>
+<kw name="Vérification des montants">
+<var>${status_solde}</var>
+<arg>${montant_carte_bancaire}</arg>
+<arg>${montant_espece}</arg>
+<arg>${montant_ticket_restaurant}</arg>
+<arg>${montant_prelevement}</arg>
+<arg>${montant_monnaie}</arg>
+<doc>Vérification du solde selon la regles "carte bancaire + espèces + ticket restaurant = prélèvement - apport monnaie".</doc>
+<kw name="Evaluate" library="BuiltIn">
+<var>${montant_total}</var>
+<arg>${montant_carte_bancaire}+${montant_espece}+${montant_ticket_restaurant}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.874" level="INFO">${montant_total} = 18000</msg>
+<status status="PASS" starttime="20230524 09:33:43.873" endtime="20230524 09:33:43.874"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${solde}</var>
+<arg>${montant_prelevement} - ${montant_apport_monnaie}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.876" level="INFO">${solde} = 11000</msg>
+<status status="PASS" starttime="20230524 09:33:43.874" endtime="20230524 09:33:43.876"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${statut_solde}</var>
+<arg>'${montant_total}'=='${solde}'</arg>
+<arg>Set Variable</arg>
+<arg>${True}</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>${False}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Set Variable" library="BuiltIn">
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" starttime="20230524 09:33:43.878" endtime="20230524 09:33:43.880"/>
+</kw>
+<msg timestamp="20230524 09:33:43.880" level="INFO">${statut_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.877" endtime="20230524 09:33:43.880"/>
+</kw>
+<msg timestamp="20230524 09:33:43.881" level="INFO">${status_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.872" endtime="20230524 09:33:43.881"/>
+</kw>
+<if>
+<branch type="IF" condition="${status_solde} == False">
+<kw name="Append To List" library="Collections">
+<arg>${ResponsablesEnErreur}</arg>
+<arg>${nom_responsable}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.882" endtime="20230524 09:33:43.882"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.882" endtime="20230524 09:33:43.884"/>
+</branch>
+<status status="PASS" starttime="20230524 09:33:43.881" endtime="20230524 09:33:43.884"/>
+</if>
+<status status="PASS" starttime="20230524 09:33:43.867" endtime="20230524 09:33:43.884"/>
+</iter>
+<status status="PASS" starttime="20230524 09:33:43.851" endtime="20230524 09:33:43.884"/>
 </for>
 <kw name="Create List" library="BuiltIn">
 <var>${contenu_html}</var>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20230524 09:14:10.981" level="INFO">${contenu_html} = []</msg>
-<status status="PASS" starttime="20230524 09:14:10.981" endtime="20230524 09:14:10.981"/>
+<msg timestamp="20230524 09:33:43.884" level="INFO">${contenu_html} = []</msg>
+<status status="PASS" starttime="20230524 09:33:43.884" endtime="20230524 09:33:43.884"/>
 </kw>
 <for flavor="IN">
 <var>${responsable}</var>
 <value>@{ResponsablesEnErreur}</value>
-<iter>
-<var name="${responsable}">Anicet YEDAGNE</var>
-<kw name="Catenate" library="BuiltIn">
-<var>${balise_html}</var>
-<arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
-<doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.982" level="INFO">${balise_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.982" endtime="20230524 09:14:10.982"/>
-</kw>
-<kw name="Append To List" library="Collections">
-<arg>${contenu_html}</arg>
-<arg>${balise_html}</arg>
-<doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20230524 09:14:10.982" endtime="20230524 09:14:10.983"/>
-</kw>
-<status status="PASS" starttime="20230524 09:14:10.981" endtime="20230524 09:14:10.983"/>
-</iter>
 <iter>
 <var name="${responsable}">Romeo BEYARA</var>
 <kw name="Catenate" library="BuiltIn">
 <var>${balise_html}</var>
 <arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
 <doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.983" level="INFO">${balise_html} = &lt;li&gt;Romeo BEYARA&lt;/li&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.983" endtime="20230524 09:14:10.984"/>
+<msg timestamp="20230524 09:33:43.884" level="INFO">${balise_html} = &lt;li&gt;Romeo BEYARA&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.884" endtime="20230524 09:33:43.884"/>
 </kw>
 <kw name="Append To List" library="Collections">
 <arg>${contenu_html}</arg>
 <arg>${balise_html}</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20230524 09:14:10.984" endtime="20230524 09:14:10.984"/>
+<status status="PASS" starttime="20230524 09:33:43.884" endtime="20230524 09:33:43.884"/>
 </kw>
-<status status="PASS" starttime="20230524 09:14:10.983" endtime="20230524 09:14:10.984"/>
+<status status="PASS" starttime="20230524 09:33:43.884" endtime="20230524 09:33:43.885"/>
 </iter>
-<status status="PASS" starttime="20230524 09:14:10.981" endtime="20230524 09:14:10.984"/>
+<iter>
+<var name="${responsable}">Anicet YEDAGNE</var>
+<kw name="Catenate" library="BuiltIn">
+<var>${balise_html}</var>
+<arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230524 09:33:43.885" level="INFO">${balise_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.885" endtime="20230524 09:33:43.885"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${contenu_html}</arg>
+<arg>${balise_html}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.885" endtime="20230524 09:33:43.885"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.885" endtime="20230524 09:33:43.886"/>
+</iter>
+<status status="PASS" starttime="20230524 09:33:43.884" endtime="20230524 09:33:43.886"/>
 </for>
+<kw name="Create List" library="BuiltIn">
+<var>@{ResponsablesEnErreur}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230524 09:33:43.886" level="INFO">@{ResponsablesEnErreur} = [ ]</msg>
+<status status="PASS" starttime="20230524 09:33:43.886" endtime="20230524 09:33:43.886"/>
+</kw>
 <kw name="Evaluate" library="BuiltIn">
 <var>${contenu_html}</var>
 <arg>''.join(${contenu_html})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20230524 09:14:10.985" level="INFO">${contenu_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.985" endtime="20230524 09:14:10.986"/>
+<msg timestamp="20230524 09:33:43.886" level="INFO">${contenu_html} = &lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.886" endtime="20230524 09:33:43.887"/>
 </kw>
 <kw name="Catenate" library="BuiltIn">
 <var>${rapport_html}</var>
 <arg>&lt;h2&gt;${date}&lt;/h2&gt;&lt;ol&gt;${contenu_html}&lt;/ol&gt;</arg>
 <doc>Catenates the given items together and returns the resulted string.</doc>
-<msg timestamp="20230524 09:14:10.987" level="INFO">${rapport_html} = &lt;h2&gt;2023-05-19&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;/ol&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.986" endtime="20230524 09:14:10.988"/>
+<msg timestamp="20230524 09:33:43.887" level="INFO">${rapport_html} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.887" endtime="20230524 09:33:43.887"/>
 </kw>
 <kw name="Set Variable" library="BuiltIn">
 <var>${rapport_complet}</var>
 <arg>${rapport_complet}${rapport_html}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<msg timestamp="20230524 09:14:10.991" level="INFO">${rapport_complet} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;&lt;h2&gt;2023-05-19&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;/ol&gt;</msg>
-<status status="PASS" starttime="20230524 09:14:10.989" endtime="20230524 09:14:10.991"/>
+<msg timestamp="20230524 09:33:43.888" level="INFO">${rapport_complet} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.887" endtime="20230524 09:33:43.888"/>
 </kw>
-<status status="PASS" starttime="20230524 09:14:10.956" endtime="20230524 09:14:10.991"/>
+<status status="PASS" starttime="20230524 09:33:43.845" endtime="20230524 09:33:43.888"/>
 </iter>
-<status status="PASS" starttime="20230524 09:14:10.921" endtime="20230524 09:14:10.991"/>
+<iter>
+<var name="${rapport}">(datetime.date(2023, 5, 19), [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'monta...</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${date}</var>
+<arg>${rapport[0]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.891" level="INFO">${date} = 2023-05-19</msg>
+<status status="PASS" starttime="20230524 09:33:43.889" endtime="20230524 09:33:43.891"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rapport_details}</var>
+<arg>${rapport[1]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.893" level="INFO">${rapport_details} = [{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, 'm...</msg>
+<status status="PASS" starttime="20230524 09:33:43.892" endtime="20230524 09:33:43.893"/>
+</kw>
+<for flavor="IN">
+<var>${responsable_details}</var>
+<value>@{rapport_details}</value>
+<iter>
+<var name="${responsable_details}">{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Romeo BEYARA', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, 'mo...</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nom_responsable}</var>
+<arg>${responsable_details['nom_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.896" level="INFO">${nom_responsable} = Romeo BEYARA</msg>
+<status status="PASS" starttime="20230524 09:33:43.896" endtime="20230524 09:33:43.897"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${email_responsable}</var>
+<arg>${responsable_details['email_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.897" level="INFO">${email_responsable} = anicetyedagne@eburtis.ci</msg>
+<status status="PASS" starttime="20230524 09:33:43.897" endtime="20230524 09:33:43.898"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_carte_bancaire}</var>
+<arg>${responsable_details['montant_carte_bancaire']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.898" level="INFO">${montant_carte_bancaire} = 12000</msg>
+<status status="PASS" starttime="20230524 09:33:43.898" endtime="20230524 09:33:43.898"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_espece}</var>
+<arg>${responsable_details['montant_espece']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.899" level="INFO">${montant_espece} = 5000</msg>
+<status status="PASS" starttime="20230524 09:33:43.898" endtime="20230524 09:33:43.899"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_ticket_restaurant}</var>
+<arg>${responsable_details['montant_ticket_restaurant']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.900" level="INFO">${montant_ticket_restaurant} = 1000</msg>
+<status status="PASS" starttime="20230524 09:33:43.899" endtime="20230524 09:33:43.900"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_prelevement}</var>
+<arg>${responsable_details['montant_prelevement']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.901" level="INFO">${montant_prelevement} = 14000</msg>
+<status status="PASS" starttime="20230524 09:33:43.900" endtime="20230524 09:33:43.901"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_monnaie}</var>
+<arg>${responsable_details['montant_monnaie']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.901" level="INFO">${montant_monnaie} = 3000</msg>
+<status status="PASS" starttime="20230524 09:33:43.901" endtime="20230524 09:33:43.901"/>
+</kw>
+<kw name="Vérification des montants">
+<var>${status_solde}</var>
+<arg>${montant_carte_bancaire}</arg>
+<arg>${montant_espece}</arg>
+<arg>${montant_ticket_restaurant}</arg>
+<arg>${montant_prelevement}</arg>
+<arg>${montant_monnaie}</arg>
+<doc>Vérification du solde selon la regles "carte bancaire + espèces + ticket restaurant = prélèvement - apport monnaie".</doc>
+<kw name="Evaluate" library="BuiltIn">
+<var>${montant_total}</var>
+<arg>${montant_carte_bancaire}+${montant_espece}+${montant_ticket_restaurant}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.903" level="INFO">${montant_total} = 18000</msg>
+<status status="PASS" starttime="20230524 09:33:43.902" endtime="20230524 09:33:43.903"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${solde}</var>
+<arg>${montant_prelevement} - ${montant_apport_monnaie}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.903" level="INFO">${solde} = 11000</msg>
+<status status="PASS" starttime="20230524 09:33:43.903" endtime="20230524 09:33:43.903"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${statut_solde}</var>
+<arg>'${montant_total}'=='${solde}'</arg>
+<arg>Set Variable</arg>
+<arg>${True}</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>${False}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Set Variable" library="BuiltIn">
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" starttime="20230524 09:33:43.904" endtime="20230524 09:33:43.904"/>
+</kw>
+<msg timestamp="20230524 09:33:43.904" level="INFO">${statut_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.903" endtime="20230524 09:33:43.904"/>
+</kw>
+<msg timestamp="20230524 09:33:43.904" level="INFO">${status_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.901" endtime="20230524 09:33:43.905"/>
+</kw>
+<if>
+<branch type="IF" condition="${status_solde} == False">
+<kw name="Append To List" library="Collections">
+<arg>${ResponsablesEnErreur}</arg>
+<arg>${nom_responsable}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.905" endtime="20230524 09:33:43.905"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.905" endtime="20230524 09:33:43.905"/>
+</branch>
+<status status="PASS" starttime="20230524 09:33:43.905" endtime="20230524 09:33:43.906"/>
+</if>
+<status status="PASS" starttime="20230524 09:33:43.895" endtime="20230524 09:33:43.906"/>
+</iter>
+<iter>
+<var name="${responsable_details}">{'montant_espece': 5000, 'montant_monnaie': 3000, 'nom_responsable': 'Anicet YEDAGNE', 'email_responsable': 'anicetyedagne@eburtis.ci', 'montant_prelevement': 14000, 'montant_carte_bancaire': 12000, '...</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nom_responsable}</var>
+<arg>${responsable_details['nom_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.908" level="INFO">${nom_responsable} = Anicet YEDAGNE</msg>
+<status status="PASS" starttime="20230524 09:33:43.906" endtime="20230524 09:33:43.909"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${email_responsable}</var>
+<arg>${responsable_details['email_responsable']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.912" level="INFO">${email_responsable} = anicetyedagne@eburtis.ci</msg>
+<status status="PASS" starttime="20230524 09:33:43.911" endtime="20230524 09:33:43.913"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_carte_bancaire}</var>
+<arg>${responsable_details['montant_carte_bancaire']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.914" level="INFO">${montant_carte_bancaire} = 12000</msg>
+<status status="PASS" starttime="20230524 09:33:43.913" endtime="20230524 09:33:43.914"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_espece}</var>
+<arg>${responsable_details['montant_espece']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.914" level="INFO">${montant_espece} = 5000</msg>
+<status status="PASS" starttime="20230524 09:33:43.914" endtime="20230524 09:33:43.914"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_ticket_restaurant}</var>
+<arg>${responsable_details['montant_ticket_restaurant']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.915" level="INFO">${montant_ticket_restaurant} = 1000</msg>
+<status status="PASS" starttime="20230524 09:33:43.915" endtime="20230524 09:33:43.915"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_prelevement}</var>
+<arg>${responsable_details['montant_prelevement']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.915" level="INFO">${montant_prelevement} = 14000</msg>
+<status status="PASS" starttime="20230524 09:33:43.915" endtime="20230524 09:33:43.915"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${montant_monnaie}</var>
+<arg>${responsable_details['montant_monnaie']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.916" level="INFO">${montant_monnaie} = 3000</msg>
+<status status="PASS" starttime="20230524 09:33:43.916" endtime="20230524 09:33:43.916"/>
+</kw>
+<kw name="Vérification des montants">
+<var>${status_solde}</var>
+<arg>${montant_carte_bancaire}</arg>
+<arg>${montant_espece}</arg>
+<arg>${montant_ticket_restaurant}</arg>
+<arg>${montant_prelevement}</arg>
+<arg>${montant_monnaie}</arg>
+<doc>Vérification du solde selon la regles "carte bancaire + espèces + ticket restaurant = prélèvement - apport monnaie".</doc>
+<kw name="Evaluate" library="BuiltIn">
+<var>${montant_total}</var>
+<arg>${montant_carte_bancaire}+${montant_espece}+${montant_ticket_restaurant}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.917" level="INFO">${montant_total} = 18000</msg>
+<status status="PASS" starttime="20230524 09:33:43.917" endtime="20230524 09:33:43.917"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${solde}</var>
+<arg>${montant_prelevement} - ${montant_apport_monnaie}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.918" level="INFO">${solde} = 11000</msg>
+<status status="PASS" starttime="20230524 09:33:43.917" endtime="20230524 09:33:43.918"/>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<var>${statut_solde}</var>
+<arg>'${montant_total}'=='${solde}'</arg>
+<arg>Set Variable</arg>
+<arg>${True}</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>${False}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<kw name="Set Variable" library="BuiltIn">
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" starttime="20230524 09:33:43.918" endtime="20230524 09:33:43.919"/>
+</kw>
+<msg timestamp="20230524 09:33:43.919" level="INFO">${statut_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.918" endtime="20230524 09:33:43.919"/>
+</kw>
+<msg timestamp="20230524 09:33:43.919" level="INFO">${status_solde} = False</msg>
+<status status="PASS" starttime="20230524 09:33:43.916" endtime="20230524 09:33:43.919"/>
+</kw>
+<if>
+<branch type="IF" condition="${status_solde} == False">
+<kw name="Append To List" library="Collections">
+<arg>${ResponsablesEnErreur}</arg>
+<arg>${nom_responsable}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.920" endtime="20230524 09:33:43.920"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.919" endtime="20230524 09:33:43.920"/>
+</branch>
+<status status="PASS" starttime="20230524 09:33:43.919" endtime="20230524 09:33:43.920"/>
+</if>
+<status status="PASS" starttime="20230524 09:33:43.906" endtime="20230524 09:33:43.920"/>
+</iter>
+<status status="PASS" starttime="20230524 09:33:43.895" endtime="20230524 09:33:43.920"/>
+</for>
+<kw name="Create List" library="BuiltIn">
+<var>${contenu_html}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230524 09:33:43.920" level="INFO">${contenu_html} = []</msg>
+<status status="PASS" starttime="20230524 09:33:43.920" endtime="20230524 09:33:43.921"/>
+</kw>
+<for flavor="IN">
+<var>${responsable}</var>
+<value>@{ResponsablesEnErreur}</value>
+<iter>
+<var name="${responsable}">Romeo BEYARA</var>
+<kw name="Catenate" library="BuiltIn">
+<var>${balise_html}</var>
+<arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230524 09:33:43.923" level="INFO">${balise_html} = &lt;li&gt;Romeo BEYARA&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.922" endtime="20230524 09:33:43.923"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${contenu_html}</arg>
+<arg>${balise_html}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.923" endtime="20230524 09:33:43.924"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.921" endtime="20230524 09:33:43.924"/>
+</iter>
+<iter>
+<var name="${responsable}">Anicet YEDAGNE</var>
+<kw name="Catenate" library="BuiltIn">
+<var>${balise_html}</var>
+<arg>&lt;li&gt;${responsable}&lt;/li&gt;</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230524 09:33:43.925" level="INFO">${balise_html} = &lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.924" endtime="20230524 09:33:43.925"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${contenu_html}</arg>
+<arg>${balise_html}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20230524 09:33:43.925" endtime="20230524 09:33:43.926"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.924" endtime="20230524 09:33:43.926"/>
+</iter>
+<status status="PASS" starttime="20230524 09:33:43.921" endtime="20230524 09:33:43.926"/>
+</for>
+<kw name="Create List" library="BuiltIn">
+<var>@{ResponsablesEnErreur}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20230524 09:33:43.927" level="INFO">@{ResponsablesEnErreur} = [ ]</msg>
+<status status="PASS" starttime="20230524 09:33:43.926" endtime="20230524 09:33:43.927"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${contenu_html}</var>
+<arg>''.join(${contenu_html})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230524 09:33:43.928" level="INFO">${contenu_html} = &lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.927" endtime="20230524 09:33:43.928"/>
+</kw>
+<kw name="Catenate" library="BuiltIn">
+<var>${rapport_html}</var>
+<arg>&lt;h2&gt;${date}&lt;/h2&gt;&lt;ol&gt;${contenu_html}&lt;/ol&gt;</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<msg timestamp="20230524 09:33:43.928" level="INFO">${rapport_html} = &lt;h2&gt;2023-05-19&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.928" endtime="20230524 09:33:43.928"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rapport_complet}</var>
+<arg>${rapport_complet}${rapport_html}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230524 09:33:43.929" level="INFO">${rapport_complet} = &lt;h2&gt;2023-05-25&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;&lt;h2&gt;2023-05-19&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Romeo BEYARA&lt;/li&gt;&lt;li&gt;Anicet YEDAGNE&lt;/li&gt;&lt;/ol&gt;</msg>
+<status status="PASS" starttime="20230524 09:33:43.928" endtime="20230524 09:33:43.929"/>
+</kw>
+<status status="PASS" starttime="20230524 09:33:43.888" endtime="20230524 09:33:43.929"/>
+</iter>
+<status status="PASS" starttime="20230524 09:33:43.843" endtime="20230524 09:33:43.929"/>
 </for>
 <kw name="Html To Pdf" library="RPA.PDF">
 <arg>${rapport_complet}</arg>
 <arg>rapport.pdf</arg>
 <doc>Generate a PDF file from HTML content.</doc>
-<msg timestamp="20230524 09:14:10.995" level="INFO">Writing output to file E:\maa_code\rpa_caise\rapport.pdf</msg>
-<msg timestamp="20230524 09:14:11.131" level="INFO">maxp pruned</msg>
-<msg timestamp="20230524 09:14:11.132" level="INFO">cmap pruned</msg>
-<msg timestamp="20230524 09:14:11.139" level="INFO">post pruned</msg>
-<msg timestamp="20230524 09:14:11.144" level="INFO">GDEF dropped</msg>
-<msg timestamp="20230524 09:14:11.145" level="INFO">GPOS dropped</msg>
-<msg timestamp="20230524 09:14:11.146" level="INFO">GSUB dropped</msg>
-<msg timestamp="20230524 09:14:11.148" level="INFO">name pruned</msg>
-<msg timestamp="20230524 09:14:11.157" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.158" level="INFO">Added gid0 to subset</msg>
-<msg timestamp="20230524 09:14:11.159" level="INFO">Added first four glyphs to subset</msg>
-<msg timestamp="20230524 09:14:11.159" level="INFO">Closing glyph list over 'glyf': 34 glyphs before</msg>
-<msg timestamp="20230524 09:14:11.159" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0047', 'uni004E', 'uni0052', 'uni0059', 'uni0062', 'uni0063', 'uni0065', 'uni0069', 'uni006D', 'uni006E', 'uni006F', 'uni0074', 'uni007B', 'uni007D', 'uni00C4']</msg>
-<msg timestamp="20230524 09:14:11.160" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 141, 299, 382, 469, 575, 582, 612, 679, 752, 759, 775, 884, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1361, 1404, 1681]</msg>
-<msg timestamp="20230524 09:14:11.160" level="INFO">Closed glyph list over 'glyf': 34 glyphs after</msg>
-<msg timestamp="20230524 09:14:11.161" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0047', 'uni004E', 'uni0052', 'uni0059', 'uni0062', 'uni0063', 'uni0065', 'uni0069', 'uni006D', 'uni006E', 'uni006F', 'uni0074', 'uni007B', 'uni007D', 'uni00C4']</msg>
-<msg timestamp="20230524 09:14:11.161" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 141, 299, 382, 469, 575, 582, 612, 679, 752, 759, 775, 884, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1361, 1404, 1681]</msg>
-<msg timestamp="20230524 09:14:11.161" level="INFO">Retaining 34 glyphs</msg>
-<msg timestamp="20230524 09:14:11.162" level="INFO">head subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.162" level="INFO">hhea subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.162" level="INFO">maxp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.162" level="INFO">OS/2 subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.164" level="INFO">hmtx subsetted</msg>
-<msg timestamp="20230524 09:14:11.166" level="INFO">cmap subsetted</msg>
-<msg timestamp="20230524 09:14:11.167" level="INFO">prep subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.167" level="INFO">loca subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.167" level="INFO">post subsetted</msg>
-<msg timestamp="20230524 09:14:11.167" level="INFO">gasp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.168" level="INFO">STAT subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.168" level="INFO">name subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.169" level="INFO">glyf subsetted</msg>
-<msg timestamp="20230524 09:14:11.170" level="INFO">head pruned</msg>
-<msg timestamp="20230524 09:14:11.172" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
-<msg timestamp="20230524 09:14:11.173" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.209" level="INFO">maxp pruned</msg>
-<msg timestamp="20230524 09:14:11.209" level="INFO">cmap pruned</msg>
-<msg timestamp="20230524 09:14:11.210" level="INFO">post pruned</msg>
-<msg timestamp="20230524 09:14:11.210" level="INFO">GDEF dropped</msg>
-<msg timestamp="20230524 09:14:11.210" level="INFO">GPOS dropped</msg>
-<msg timestamp="20230524 09:14:11.210" level="INFO">GSUB dropped</msg>
-<msg timestamp="20230524 09:14:11.211" level="INFO">name pruned</msg>
-<msg timestamp="20230524 09:14:11.215" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.216" level="INFO">Added gid0 to subset</msg>
-<msg timestamp="20230524 09:14:11.216" level="INFO">Added first four glyphs to subset</msg>
-<msg timestamp="20230524 09:14:11.216" level="INFO">Closing glyph list over 'glyf': 19 glyphs before</msg>
-<msg timestamp="20230524 09:14:11.217" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
-<msg timestamp="20230524 09:14:11.217" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
-<msg timestamp="20230524 09:14:11.221" level="INFO">Closed glyph list over 'glyf': 19 glyphs after</msg>
-<msg timestamp="20230524 09:14:11.222" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
-<msg timestamp="20230524 09:14:11.223" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
-<msg timestamp="20230524 09:14:11.224" level="INFO">Retaining 19 glyphs</msg>
-<msg timestamp="20230524 09:14:11.225" level="INFO">head subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.225" level="INFO">hhea subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.225" level="INFO">maxp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.226" level="INFO">OS/2 subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.228" level="INFO">hmtx subsetted</msg>
-<msg timestamp="20230524 09:14:11.230" level="INFO">cmap subsetted</msg>
-<msg timestamp="20230524 09:14:11.230" level="INFO">prep subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.231" level="INFO">loca subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.231" level="INFO">post subsetted</msg>
-<msg timestamp="20230524 09:14:11.231" level="INFO">gasp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.231" level="INFO">STAT subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.231" level="INFO">name subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.233" level="INFO">glyf subsetted</msg>
-<msg timestamp="20230524 09:14:11.234" level="INFO">head pruned</msg>
-<msg timestamp="20230524 09:14:11.234" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
-<msg timestamp="20230524 09:14:11.234" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.249" level="INFO">maxp pruned</msg>
-<msg timestamp="20230524 09:14:11.249" level="INFO">cmap pruned</msg>
-<msg timestamp="20230524 09:14:11.249" level="INFO">post pruned</msg>
-<msg timestamp="20230524 09:14:11.249" level="INFO">GDEF dropped</msg>
-<msg timestamp="20230524 09:14:11.249" level="INFO">GPOS dropped</msg>
-<msg timestamp="20230524 09:14:11.250" level="INFO">GSUB dropped</msg>
-<msg timestamp="20230524 09:14:11.250" level="INFO">name pruned</msg>
-<msg timestamp="20230524 09:14:11.253" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.258" level="INFO">Added gid0 to subset</msg>
-<msg timestamp="20230524 09:14:11.258" level="INFO">Added first four glyphs to subset</msg>
-<msg timestamp="20230524 09:14:11.258" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
-<msg timestamp="20230524 09:14:11.258" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
-<msg timestamp="20230524 09:14:11.258" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
-<msg timestamp="20230524 09:14:11.259" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
-<msg timestamp="20230524 09:14:11.259" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
-<msg timestamp="20230524 09:14:11.259" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
-<msg timestamp="20230524 09:14:11.259" level="INFO">Retaining 18 glyphs</msg>
-<msg timestamp="20230524 09:14:11.259" level="INFO">head subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.260" level="INFO">hhea subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.260" level="INFO">maxp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.260" level="INFO">OS/2 subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.261" level="INFO">hmtx subsetted</msg>
-<msg timestamp="20230524 09:14:11.262" level="INFO">cmap subsetted</msg>
-<msg timestamp="20230524 09:14:11.262" level="INFO">loca subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.262" level="INFO">post subsetted</msg>
-<msg timestamp="20230524 09:14:11.262" level="INFO">name subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.263" level="INFO">glyf subsetted</msg>
-<msg timestamp="20230524 09:14:11.263" level="INFO">head pruned</msg>
-<msg timestamp="20230524 09:14:11.264" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
-<msg timestamp="20230524 09:14:11.264" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.279" level="INFO">maxp pruned</msg>
-<msg timestamp="20230524 09:14:11.279" level="INFO">cmap pruned</msg>
-<msg timestamp="20230524 09:14:11.279" level="INFO">post pruned</msg>
-<msg timestamp="20230524 09:14:11.280" level="INFO">GDEF dropped</msg>
-<msg timestamp="20230524 09:14:11.280" level="INFO">GPOS dropped</msg>
-<msg timestamp="20230524 09:14:11.280" level="INFO">GSUB dropped</msg>
-<msg timestamp="20230524 09:14:11.280" level="INFO">name pruned</msg>
-<msg timestamp="20230524 09:14:11.322" level="INFO">glyf pruned</msg>
-<msg timestamp="20230524 09:14:11.325" level="INFO">Added gid0 to subset</msg>
-<msg timestamp="20230524 09:14:11.325" level="INFO">Added first four glyphs to subset</msg>
-<msg timestamp="20230524 09:14:11.326" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
-<msg timestamp="20230524 09:14:11.326" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
-<msg timestamp="20230524 09:14:11.326" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
-<msg timestamp="20230524 09:14:11.326" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
-<msg timestamp="20230524 09:14:11.327" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
-<msg timestamp="20230524 09:14:11.327" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
-<msg timestamp="20230524 09:14:11.327" level="INFO">Retaining 18 glyphs</msg>
-<msg timestamp="20230524 09:14:11.327" level="INFO">head subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.328" level="INFO">hhea subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.328" level="INFO">maxp subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.328" level="INFO">OS/2 subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.329" level="INFO">hmtx subsetted</msg>
-<msg timestamp="20230524 09:14:11.330" level="INFO">cmap subsetted</msg>
-<msg timestamp="20230524 09:14:11.330" level="INFO">loca subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.330" level="INFO">post subsetted</msg>
-<msg timestamp="20230524 09:14:11.331" level="INFO">name subsetting not needed</msg>
-<msg timestamp="20230524 09:14:11.331" level="INFO">glyf subsetted</msg>
-<msg timestamp="20230524 09:14:11.332" level="INFO">head pruned</msg>
-<msg timestamp="20230524 09:14:11.332" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
-<msg timestamp="20230524 09:14:11.332" level="INFO">glyf pruned</msg>
-<status status="PASS" starttime="20230524 09:14:10.993" endtime="20230524 09:14:11.350"/>
+<msg timestamp="20230524 09:33:43.932" level="INFO">Writing output to file E:\maa_code\rpa_caise\rapport.pdf</msg>
+<msg timestamp="20230524 09:33:44.072" level="INFO">maxp pruned</msg>
+<msg timestamp="20230524 09:33:44.073" level="INFO">cmap pruned</msg>
+<msg timestamp="20230524 09:33:44.082" level="INFO">post pruned</msg>
+<msg timestamp="20230524 09:33:44.084" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230524 09:33:44.085" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230524 09:33:44.085" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230524 09:33:44.088" level="INFO">name pruned</msg>
+<msg timestamp="20230524 09:33:44.097" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.098" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230524 09:33:44.099" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230524 09:33:44.099" level="INFO">Closing glyph list over 'glyf': 34 glyphs before</msg>
+<msg timestamp="20230524 09:33:44.099" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0047', 'uni004E', 'uni0052', 'uni0059', 'uni0062', 'uni0063', 'uni0065', 'uni0069', 'uni006D', 'uni006E', 'uni006F', 'uni0074', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230524 09:33:44.100" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 141, 299, 382, 469, 575, 582, 612, 679, 752, 759, 775, 884, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1361, 1404, 1681]</msg>
+<msg timestamp="20230524 09:33:44.100" level="INFO">Closed glyph list over 'glyf': 34 glyphs after</msg>
+<msg timestamp="20230524 09:33:44.101" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni002D', 'uni002E', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0042', 'uni0044', 'uni0045', 'uni0047', 'uni004E', 'uni0052', 'uni0059', 'uni0062', 'uni0063', 'uni0065', 'uni0069', 'uni006D', 'uni006E', 'uni006F', 'uni0074', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230524 09:33:44.102" level="INFO">Glyph IDs:   [0, 1, 2, 3, 65, 84, 95, 141, 299, 382, 469, 575, 582, 612, 679, 752, 759, 775, 884, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1361, 1404, 1681]</msg>
+<msg timestamp="20230524 09:33:44.102" level="INFO">Retaining 34 glyphs</msg>
+<msg timestamp="20230524 09:33:44.103" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.103" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.103" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.103" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.104" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230524 09:33:44.106" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230524 09:33:44.106" level="INFO">prep subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.106" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.106" level="INFO">post subsetted</msg>
+<msg timestamp="20230524 09:33:44.106" level="INFO">gasp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.107" level="INFO">STAT subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.107" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.109" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230524 09:33:44.110" level="INFO">head pruned</msg>
+<msg timestamp="20230524 09:33:44.111" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230524 09:33:44.112" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.135" level="INFO">maxp pruned</msg>
+<msg timestamp="20230524 09:33:44.135" level="INFO">cmap pruned</msg>
+<msg timestamp="20230524 09:33:44.135" level="INFO">post pruned</msg>
+<msg timestamp="20230524 09:33:44.135" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230524 09:33:44.136" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230524 09:33:44.136" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230524 09:33:44.136" level="INFO">name pruned</msg>
+<msg timestamp="20230524 09:33:44.138" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.140" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230524 09:33:44.140" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230524 09:33:44.140" level="INFO">Closing glyph list over 'glyf': 19 glyphs before</msg>
+<msg timestamp="20230524 09:33:44.140" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230524 09:33:44.141" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
+<msg timestamp="20230524 09:33:44.142" level="INFO">Closed glyph list over 'glyf': 19 glyphs after</msg>
+<msg timestamp="20230524 09:33:44.142" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0041', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00C4']</msg>
+<msg timestamp="20230524 09:33:44.142" level="INFO">Glyph IDs:   [0, 1, 2, 3, 575, 759, 1294, 1295, 1296, 1298, 1299, 1300, 1302, 1303, 1304, 1305, 1345, 1346, 1681]</msg>
+<msg timestamp="20230524 09:33:44.143" level="INFO">Retaining 19 glyphs</msg>
+<msg timestamp="20230524 09:33:44.143" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.144" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.145" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.145" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.148" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230524 09:33:44.149" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230524 09:33:44.149" level="INFO">prep subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.149" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.149" level="INFO">post subsetted</msg>
+<msg timestamp="20230524 09:33:44.150" level="INFO">gasp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.150" level="INFO">STAT subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.150" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.150" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230524 09:33:44.151" level="INFO">head pruned</msg>
+<msg timestamp="20230524 09:33:44.151" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230524 09:33:44.151" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.174" level="INFO">maxp pruned</msg>
+<msg timestamp="20230524 09:33:44.175" level="INFO">cmap pruned</msg>
+<msg timestamp="20230524 09:33:44.175" level="INFO">post pruned</msg>
+<msg timestamp="20230524 09:33:44.175" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230524 09:33:44.175" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230524 09:33:44.176" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230524 09:33:44.178" level="INFO">name pruned</msg>
+<msg timestamp="20230524 09:33:44.182" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.184" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230524 09:33:44.184" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230524 09:33:44.184" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
+<msg timestamp="20230524 09:33:44.184" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">Retaining 18 glyphs</msg>
+<msg timestamp="20230524 09:33:44.185" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.186" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.186" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.186" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.187" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230524 09:33:44.188" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230524 09:33:44.188" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.188" level="INFO">post subsetted</msg>
+<msg timestamp="20230524 09:33:44.188" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.189" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230524 09:33:44.189" level="INFO">head pruned</msg>
+<msg timestamp="20230524 09:33:44.190" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230524 09:33:44.190" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">maxp pruned</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">cmap pruned</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">post pruned</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">GDEF dropped</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">GPOS dropped</msg>
+<msg timestamp="20230524 09:33:44.213" level="INFO">GSUB dropped</msg>
+<msg timestamp="20230524 09:33:44.214" level="INFO">name pruned</msg>
+<msg timestamp="20230524 09:33:44.257" level="INFO">glyf pruned</msg>
+<msg timestamp="20230524 09:33:44.262" level="INFO">Added gid0 to subset</msg>
+<msg timestamp="20230524 09:33:44.262" level="INFO">Added first four glyphs to subset</msg>
+<msg timestamp="20230524 09:33:44.262" level="INFO">Closing glyph list over 'glyf': 18 glyphs before</msg>
+<msg timestamp="20230524 09:33:44.262" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230524 09:33:44.262" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">Closed glyph list over 'glyf': 18 glyphs after</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">Glyph names: ['.notdef', '.null', 'uni0020', 'uni0030', 'uni0031', 'uni0032', 'uni0033', 'uni0034', 'uni0035', 'uni0036', 'uni0037', 'uni0038', 'uni0039', 'uni0062', 'uni006E', 'uni007B', 'uni007D', 'uni00A0']</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">Glyph IDs:   [0, 1, 2, 3, 544, 727, 1256, 1257, 1258, 1260, 1261, 1262, 1264, 1265, 1266, 1267, 1307, 1308]</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">Retaining 18 glyphs</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">head subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">hhea subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.263" level="INFO">maxp subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.264" level="INFO">OS/2 subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.264" level="INFO">hmtx subsetted</msg>
+<msg timestamp="20230524 09:33:44.265" level="INFO">cmap subsetted</msg>
+<msg timestamp="20230524 09:33:44.265" level="INFO">loca subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.265" level="INFO">post subsetted</msg>
+<msg timestamp="20230524 09:33:44.266" level="INFO">name subsetting not needed</msg>
+<msg timestamp="20230524 09:33:44.266" level="INFO">glyf subsetted</msg>
+<msg timestamp="20230524 09:33:44.266" level="INFO">head pruned</msg>
+<msg timestamp="20230524 09:33:44.267" level="INFO">OS/2 Unicode ranges pruned: [0]</msg>
+<msg timestamp="20230524 09:33:44.267" level="INFO">glyf pruned</msg>
+<status status="PASS" starttime="20230524 09:33:43.930" endtime="20230524 09:33:44.297"/>
 </kw>
 <kw name="Send Message" library="RPA.Email.ImapSmtp">
 <arg>sender=${gmail}</arg>
-<arg>recipients=yedagneanicet@gmail.com</arg>
+<arg>recipients=romeo.beyara@eburtis.ci</arg>
 <arg>subject=Rapport de caisse</arg>
 <arg>body=Bonjour, Ci-joint la liste des responsables dont les rapports journaliers sont en erreur , \n Merci de les contacter pour plus de details. \n Cordialement</arg>
 <arg>attachments=e:\\maa_code\\rpa_caise${/}rapport.pdf</arg>
 <doc>Send SMTP email</doc>
-<status status="PASS" starttime="20230524 09:14:11.352" endtime="20230524 09:14:14.595"/>
+<status status="PASS" starttime="20230524 09:33:44.298" endtime="20230524 09:33:47.485"/>
 </kw>
-<status status="PASS" starttime="20230524 09:14:09.082" endtime="20230524 09:14:14.596"/>
+<status status="PASS" starttime="20230524 09:33:42.118" endtime="20230524 09:33:47.487"/>
 </test>
 <kw name="Disconnect From Database" library="DatabaseLibrary" type="TEARDOWN">
 <doc>Disconnects from the database.</doc>
-<msg timestamp="20230524 09:14:14.601" level="INFO">Executing : Disconnect From Database</msg>
-<status status="PASS" starttime="20230524 09:14:14.600" endtime="20230524 09:14:14.602"/>
+<msg timestamp="20230524 09:33:47.491" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20230524 09:33:47.490" endtime="20230524 09:33:47.493"/>
 </kw>
 <doc>Automatisation du processus d'insertion de donnée dans une base d'un fichier excel</doc>
-<status status="PASS" starttime="20230524 09:14:05.788" endtime="20230524 09:14:14.602"/>
+<status status="PASS" starttime="20230524 09:33:38.856" endtime="20230524 09:33:47.493"/>
 </suite>
 <statistics>
 <total>
