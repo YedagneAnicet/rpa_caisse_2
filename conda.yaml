@@ -16,4 +16,5 @@ dependencies:
       - robotframework-excellib
       - robotframework-databaselibrary
       - reportlab
+      - robotframework-stringformat
       - psycopg2

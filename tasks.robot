@@ -10,6 +10,7 @@ Library           DateTime
 Library           RPA.Email.ImapSmtp   smtp_server=smtp.gmail.com  smtp_port=587
 Library           RPA.PDF
 Library           String
+Library           StringFormat
 Library           Collections
 Task Setup  Authorize  account=${gmail}  password=${mdp}
 
@@ -40,16 +41,26 @@ Lire le fichier Excel
 
 Insertion dans la base de donnee
     [Documentation]      Insertion des données dans la base de donnée
-    [Arguments]    ${nom_responsable}    ${email_responsable}    ${date}    ${montant_carte_bancaire}   ${montant_espece}    ${montant_ticket_restaurant}   ${montant_prelevement}   ${montant_apport_monnaie}
-    ${query}    Catenate       INSERT INTO  rapport_journalier (nom_responsable, email_responsable, date, montant_carte_bancaire, montant_espece, montant_ticket_restaurant, montant_prelevement, montant_monnaie ) VALUES ('${nom_responsable}','${email_responsable}','${date}','${montant_carte_bancaire}','${montant_espece}','${montant_ticket_restaurant}','${montant_prelevement}','${montant_apport_monnaie}')
+    [Arguments]    ${nom_responsable}    ${email_responsable}    ${date}    ${montant_carte_bancaire}   ${montant_espece}    ${montant_ticket_restaurant}   
+    ...    ${montant_prelevement}   ${montant_apport_monnaie}
+    ${query}    Catenate       INSERT INTO  rapport_journalier (nom_responsable, email_responsable, date, montant_carte_bancaire, montant_espece, montant_ticket_restaurant,
+    ...    montant_prelevement, montant_monnaie ) VALUES ('${nom_responsable}','${email_responsable}','${date}','${montant_carte_bancaire}','${montant_espece}',
+    ...    '${montant_ticket_restaurant}','${montant_prelevement}','${montant_apport_monnaie}')
     Execute Sql String    ${query}
 
 Recuperer les donnee de la base de donnee
     [Documentation]    Recuperation des données enregistrées dans la base de donneecaisse
-    ${query}           Catenate              SELECT * FROM rapport_journalier
+    ${query}           Catenate              SELECT date, JSONB_AGG(JSONB_BUILD_OBJECT(
+    ...    'nom_responsable', nom_responsable,
+    ...    'email_responsable', email_responsable,
+    ...    'montant_carte_bancaire', montant_carte_bancaire,
+    ...    'montant_espece', montant_espece,
+    ...    'montant_ticket_restaurant', montant_ticket_restaurant,
+    ...    'montant_prelevement', montant_prelevement,
+    ...    'montant_monnaie', montant_monnaie
+    ...    )) AS rapports FROM rapport_journalier GROUP BY date;
     @{donnee}          Query    ${query}
     [Return]           @{donnee}
-
 
 Vérification des montants
     [Documentation]     Vérification du solde selon la regles "carte bancaire + espèces + ticket restaurant = prélèvement - apport monnaie".
@@ -73,6 +84,8 @@ Envoie de mail en cas d'erreur
     ...           subject=RPA CAISSE
     ...           body=Bonjour, J'ai trouvé une erreur dans le rapport journalier du ${date} sur les montants, \n Merci de verifier les differents montants. \n Cordialement
     ...           attachments=${chemin}
+
+
 
 *** Test Cases ***
 Enregistrement du rapport dans la base de donnee
@@ -98,36 +111,50 @@ Enregistrement du rapport dans la base de donnee
 Rapport d'activité
     @{ListeRapports}    Recuperer les donnee de la base de donnee
 
-    @{ResponsablesEnErreur}     Create List   
+    @{ResponsablesEnErreur}    Create List
+
+    ${rapport_complet}    Set Variable    ${EMPTY}
 
     FOR    ${rapport}    IN    @{ListeRapports}
-        ${nom_responsable}               Set Variable        ${rapport}[1]
-        ${email_responsable}             Set Variable        ${rapport}[2]
-        ${date}                          Set Variable        ${rapport}[3]
-        ${montant_carte_bancaire}        Set Variable        ${rapport}[4]
-        ${montant_espece}                Set Variable        ${rapport}[5]
-        ${montant_ticket_restaurant}     Set Variable        ${rapport}[6]
-        ${montant_prelevement}           Set Variable        ${rapport}[7]
-        ${montant_apport_monnaie}        Set Variable        ${rapport}[8]
 
-        ${status_solde}        Vérification des montants               ${montant_carte_bancaire}   ${montant_espece}       ${montant_ticket_restaurant}   ${montant_prelevement}   ${montant_apport_monnaie}    
-        
-        ${date_format}        Formattage Date    ${date}
-        
-        IF    ${status_solde} == False  
-            Append To List     ${ResponsablesEnErreur}    ${nom_responsable} 
+        ${date}    Set Variable    ${rapport[0]}
+        ${rapport_details}    Set Variable    ${rapport[1]}
+
+        FOR    ${responsable_details}    IN    @{rapport_details}
+            ${nom_responsable}                Set Variable        ${responsable_details['nom_responsable']}
+            ${email_responsable}              Set Variable        ${responsable_details['email_responsable']}
+            ${montant_carte_bancaire}         Set Variable        ${responsable_details['montant_carte_bancaire']}
+            ${montant_espece}                 Set Variable        ${responsable_details['montant_espece']}
+            ${montant_ticket_restaurant}      Set Variable        ${responsable_details['montant_ticket_restaurant']}
+            ${montant_prelevement}            Set Variable        ${responsable_details['montant_prelevement']}
+            ${montant_monnaie}                Set Variable        ${responsable_details['montant_monnaie']}
+            
+            ${status_solde}    Vérification des montants    ${montant_carte_bancaire}    ${montant_espece}    ${montant_ticket_restaurant}    ${montant_prelevement}    ${montant_monnaie}
+            
+            IF    ${status_solde} == False
+                Append To List    ${ResponsablesEnErreur}    ${nom_responsable}
+            END
+          
         END
-    
+
+        ${contenu_html}    Create List
+
+        FOR    ${responsable}    IN    @{ResponsablesEnErreur}
+            ${balise_html}    Catenate    <li>${responsable}</li>
+            Append To List    ${contenu_html}    ${balise_html}
+        END
+
+        ${contenu_html}    Evaluate       ''.join(${contenu_html})    
+
+        ${rapport_html}    Catenate    <h2>${date}</h2><ol>${contenu_html}</ol>
+
+        ${rapport_complet}    Set Variable        ${rapport_complet}${rapport_html}
     END
 
-    ${contenu_html}    Create List    
+    Html To Pdf    ${rapport_complet}    rapport.pdf
 
-    FOR    ${responsable}    IN    @{ResponsablesEnErreur}
-            ${balise_html}    Set Variable    <!DOCTYPE html><html><body> <h2>${date_format}</h2><ol><li>${responsable}</li></ol></body></html>
-            Append To List    ${contenu_html}    ${balise_html}    
-    END
-    
-    
-    ${rapport_complet}    Set Variable    ${contenu_html}    
-    
-    Html To Pdf    ${rapport_complet}    test.pdf
+    Send Message  sender=${gmail}
+    ...           recipients=yedagneanicet@gmail.com
+    ...           subject=Rapport de caisse 
+    ...           body=Bonjour, Ci-joint la liste des responsables dont les rapports journaliers sont en erreur , \n Merci de les contacter pour plus de details. \n Cordialement
+    ...           attachments=${CURDIR}${/}rapport.pdf
